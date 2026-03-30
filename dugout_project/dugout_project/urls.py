@@ -23,6 +23,6 @@ urlpatterns = [
     path('', include('main.urls')),
     path("feed/", include("feed.urls")),
     path("info/", include("info.urls")),
-
+    path("feed/", include("feed.urls")),
     path('create/', views.create, name='create'),
 ]
