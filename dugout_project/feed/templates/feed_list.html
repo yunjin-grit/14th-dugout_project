@@ -28,7 +28,7 @@
             <div class="container px-5">
 
                 <h2 class="fw-bolder mb-4">게시글 목록</h2>
-
+                <a class="btn btn-light me-2" href="{% url 'feed_create' %}">새 글 작성하기</a>
                 {% for item in feed %}
                 <div class="card shadow border-0 rounded-4 mb-4">
                     <div class="card-body p-4">
@@ -46,7 +46,19 @@
                     </div>
                 </div>
                 {% endfor %}
+                <div class="text-center py-5">
+                    {% if feed.has_previous %}
+                    <a href="?page=1">≪</a>
+                    <a href="?page={{ feed.previous_page_number }}">< </a>
+                {% endif %}
 
+                <span> {{ feed.number }} / {{ feed.paginator.num_pages }} </span>
+
+                {% if feed.has_next %}
+                    <a href="?page={{ feed.next_page_number }}"> ></a>
+                    <a href="?page={{ feed.paginator.num_pages }}">≫</a>
+                {% endif %}
+                </div>
             </div>
         </section>
     </main>

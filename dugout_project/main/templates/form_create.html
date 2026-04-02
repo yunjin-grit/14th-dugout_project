@@ -7,7 +7,7 @@
   </head>
   <body>
     <h1>인기 글, 인기 댓글, 간단한 정보 페이지</h1>
-    <form action="" method="POST">
+    <form action="" method="POST" enctype="multipart/form-data">
       {% csrf_token %}
       <table>
         {{ form.as_table }} 
