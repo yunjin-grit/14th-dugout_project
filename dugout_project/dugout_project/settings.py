@@ -24,9 +24,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-3alwmac8@1732jub0x@mg)%-a36z_+$ii7je&15#m=ksqlmdnu'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'ylly.pythonanywhere.com',
+]
 
 
 # Application definition
@@ -42,6 +44,14 @@ INSTALLED_APPS = [
     'main',
     'feed',
     'info',
+    'accounts',
+
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+
+     'allauth.socialaccount.providers.google',
 ]
 
 MIDDLEWARE = [
@@ -52,7 +62,21 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    "allauth.account.middleware.AccountMiddleware",
 ]
+
+SITE_ID = 1
+
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    #`allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+LOGIN_REDIRECT_URL = '/'
 
 ROOT_URLCONF = 'dugout_project.urls'
 
@@ -83,6 +107,7 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+STATIC_ROOT = os.path.join('staticfiles')
 
 
 # Password validation

@@ -6,18 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Personal - Start Bootstrap Theme</title>
     <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 </head>
 <body class="d-flex flex-column h-100">
     <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
                 <div class="container px-5">
-                    <a class="navbar-brand" href="{% url 'main' %}"><span class="fw-bolder text-primary">Start Bootstrap</span></a>
+                    <a class="navbar-brand" href="{% url 'main' %}"><span class="fw-bolder text-primary">Extra Innings</span></a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
-                            <li class="nav-item"><a class="nav-link" href="{% url 'main' %}">Home</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{% url 'info' %}">Resume</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{% url 'feed_list' %}">게시글 목록</a></li>
-                            <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'main' %}"><i class="bi bi-house-door" style="padding-right: 5px;"></i>Home</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'info' %}"><i class="bi bi-journal-bookmark-fill" style="padding-right: 5px;"></i>직관일기</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'feed_list' %}"><i class="bi bi-chat-right-text" style="padding-right: 5px;"></i></i>더그아웃</a></li>
+                            
                         </ul>
                     </div>
                 </div>
@@ -27,8 +28,20 @@
         <section class="py-5">
             <div class="container px-5">
 
-                <h2 class="fw-bolder mb-4">게시글 목록</h2>
+                <div class="text-center mb-5">
+                    <h1 class="display-5 fw-bolder mb-0"><span class="text-gradient d-inline"><i class="bi bi-chat-left-text" style="padding-right: 20px;"></i>더그아웃</span></h1>
+                    <br>
+                    <h5>경기 리뷰부터 선수, 구단 소식과 응원까지 더그아웃 멤버의 일원이 되어 자유롭게 소통해주세요!</h5>
+                </div>
+                {% if user.is_authenticated %}
+                <hr>
                 <a class="btn btn-light me-2" href="{% url 'feed_create' %}">새 글 작성하기</a>
+                <hr>
+                {%else %}
+                <hr>
+                <h5>글 작성은 로그인 후 사용해주세요</h5>
+                <hr>
+                {% endif %}
                 {% for item in feed %}
                 <div class="card shadow border-0 rounded-4 mb-4">
                     <div class="card-body p-4">
@@ -38,6 +51,8 @@
                                 {{ item.title }}
                             </a>
                         </h3>
+
+                        <h5 class="feed-author">ID ( {{item.author}} )</h5>
 
                         <p class="text-muted">{{ item.created_at }}</p>
 
@@ -65,7 +80,7 @@
 
     <footer class="bg-white py-4 mt-auto">
         <div class="container px-5 text-center">
-            <div class="small m-0">Copyright &copy; 2026</div>
+            <div class="small m-0">Baseball Community 2026</div>
         </div>
     </footer>
 </body>

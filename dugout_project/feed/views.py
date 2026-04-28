@@ -11,7 +11,10 @@ def create(request):
     if request.method == 'POST' or request.method == 'FILES':
         form = PostModelForm(request.POST, request.FILES)  
         if form.is_valid():  
-            form.save() 
+            #form.save() 
+            unfinished_form = form.save(commit=False)
+            unfinished_form.author = request.user
+            unfinished_form.save()
             return redirect('feed_list') 
     else:
         form = PostModelForm()  
@@ -55,6 +58,7 @@ def create_comment(request, id):
     if filled_form.is_valid():
         finished_form = filled_form.save(commit=False)
         finished_form.article = get_object_or_404(Post, pk=id)
+        finished_form.author = request.user
         finished_form.save()
     return redirect('feed_detail', feed_id=id)
 
